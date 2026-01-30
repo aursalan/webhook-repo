@@ -32,6 +32,13 @@ POST <RenderWebServiceURL>/webhook/receiver
 - Extracts relevant metadata
 - Inserts records into MongoDB
 
+**2. Health Check / Keep-Alive Endpoint:**
+```
+GET <RenderWebServiceURL>/webhook/health
+```
+- Used to keep the Flask service active via cron or uptime monitors
+- Returns a lightweight JSON response
+
 ## 3. Environment Configuration
 
 Sensitive credentials are stored as environment variables:
