@@ -6,7 +6,6 @@
 - It receives webhook POST requests from the `action-repo`.
 - Validates and extracts relevant event data.
 - Stores structured logs in a MongoDB Atlas cluster.
-- Exposes APIs that allow other services to read the stored data
 - The service is deployed on Render, with sensitive configuration handled via environment variables.
 
 ## Table of Contents
@@ -32,13 +31,6 @@ POST <RenderWebServiceURL>/webhook/receiver
 - Receives GitHub webhook payloads
 - Extracts relevant metadata
 - Inserts records into MongoDB
-
-**2. Fetch Stored Events:**
-```
-GET <RenderWebServiceURL>/webhook/events
-```
-- Returns stored event logs
-- Used by the frontend UI for visualization
 
 ## 3. Environment Configuration
 
