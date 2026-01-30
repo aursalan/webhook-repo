@@ -59,8 +59,3 @@ def handle_webhook():
         return jsonify({"msg": "Event stored"}), 201
 
     return jsonify({"msg": "Action ignored"}), 200
-
-@webhook.route('/events', methods=['GET'])
-def get_events():
-    events = list(mongo.db.events.find({}, {'_id': 0}).sort('_id', -1))
-    return jsonify(events), 200
