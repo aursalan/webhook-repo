@@ -59,3 +59,11 @@ def handle_webhook():
         return jsonify({"msg": "Event stored"}), 201
 
     return jsonify({"msg": "Action ignored"}), 200
+
+@webhook.route('/health', methods=["GET"])
+def health_check():
+    return jsonify({
+        "status": "ok",
+        "service": "webhook-api",
+        "timestamp": datetime.utcnow().isoformat() + "Z"
+    }), 200
