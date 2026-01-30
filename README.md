@@ -1,47 +1,56 @@
-# Dev Assessment - Webhook Receiver
+# 🪝 Webhook Repo
 
-Please use this repository for constructing the Flask webhook receiver.
+> A Flask-based webhook receiver service that ingests GitHub events and persists them into a MongoDB Atlas cluster.
 
-*******************
+- This repository represents the backend ingestion layer of the system.
+- It receives webhook POST requests from the `action-repo`.
+- Validates and extracts relevant event data.
+- Stores structured logs in a MongoDB Atlas cluster.
+- Exposes APIs that allow other services to read the stored data
+- The service is deployed on Render, with sensitive configuration handled via environment variables.
 
-## Setup
+## Table of Contents
 
-* Create a new virtual environment
+1. [Tech Stack and Prerequisites](#1-tech-stack-and-prerequisites)
+2. [API Endpoints](#2-api-endpoints)
+3. [Environment Configuration](#3-environment-configuration)
+4. [Deployment](#4-deployment)
 
-```bash
-pip install virtualenv
+## 1. Tech Stack and Prerequisites
+
+**Backend:** Python, Flask\
+**Database:** MongoDB Atlas\
+**Deployment:** Render\
+**Prerequisites:** Git, MongoDB Atlas account, Python 3.11
+
+## 2. API Endpoints
+
+**1. Store GitHub Events:**
 ```
-
-* Create the virtual env
-
-```bash
-virtualenv venv
+POST <RenderWebServiceURL>/webhook/receiver
 ```
+- Receives GitHub webhook payloads
+- Extracts relevant metadata
+- Inserts records into MongoDB
 
-* Activate the virtual env
-
-```bash
-source venv/bin/activate
+**2. Fetch Stored Events:**
 ```
-
-* Install requirements
-
-```bash
-pip install -r requirements.txt
+GET <RenderWebServiceURL>/webhook/events
 ```
+- Returns stored event logs
+- Used by the frontend UI for visualization
 
-* Run the flask application (In production, please use Gunicorn)
+## 3. Environment Configuration
 
-```bash
-python run.py
+Sensitive credentials are stored as environment variables:
 ```
-
-* The endpoint is at:
-
-```bash
-POST http://127.0.0.1:5000/webhook/receiver
+MONGODB_URI=your_mongodb_atlas_connection_string
 ```
+These are configured directly in Render’s environment settings.
 
-You need to use this as the base and setup the flask app. Integrate this with MongoDB (commented at `app/extensions.py`)
+##  4. Deployment
 
-*******************
+- The application is deployed on Render
+- Automatic redeploys occur on push to the main branch
+- MongoDB Atlas is used as a managed cloud database
+
